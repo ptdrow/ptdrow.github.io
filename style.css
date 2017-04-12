@@ -1,0 +1,94 @@
+/* playfair display, atc-laurel, helvetica */
+/** {
+    border-style: solid;
+    border-width: 1px;
+}*/
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    margin-top: 0;
+    
+}
+
+.dropdown-content a {
+    background: rgba(255, 255, 255, 0.925);
+    box-shadow: 0px 1vw 2vw 0px rgba(0,0,0,0.2);
+    padding: 2% 10%;
+    width: 100%;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+.navigation {
+    background: rgba(255, 255, 255, 0.95);
+    background: linear-gradient(to bottom, rgba(255, 255, 255,1), rgba(255, 255, 255,0.975),rgba(255,255,255,0.9));
+    font-family: Life Savers, serif;
+    font-size: calc(12px + 2vw);
+    margin: 0;
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+}
+
+.navigation h1 {
+    font-weight: 200;
+    letter-spacing: 1vw;
+    margin-top: 2%;
+    margin-left: 3%;
+    margin-bottom: 0;
+}
+
+.navigation ul {
+    list-style: none;
+    margin-top: 1%;
+}
+
+.navigation li {
+    text-decoration: none;
+    display: inline-block;
+    min-width: 25%;
+}
+
+.navigation li a{
+    color: black;
+    padding: 5px 10px;
+    display: block;
+    text-decoration: none;
+    
+}
+
+.navigation ul li a:hover{
+    background: rgba(100,100,100,1);
+    color:white;
+}
+
+.main {
+    margin-top: calc(100px + 20vw);
+    /*padding: 5px;
+    /*overflow: hidden;
+    background-color: green;*/
+}
+
+#pyt {
+    color: green;
+}
+
+#r {
+    color: blue;
+}
+
+#rhino {
+    color: red;
+}
