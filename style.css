@@ -96,8 +96,9 @@ div.navigation {
 
 .main h1{
     font-family: Life Savers, serif;
-    font-weight: 200;
-    font-size: calc(40px + 2vw);;
+    font-weight: 600;
+    font-size: calc(40px + 2vw);
+    margin: 2% 5%;
 }
 
 .main p{
@@ -106,8 +107,23 @@ div.navigation {
     padding-left: 5%;
 }
 
-.foot a{
-    display: inline-block;
+.foot {
+    display: flex;
+    justify-content: space-between;
+    margin:auto;
+    margin-bottom: 3%;
+    width: 70%;
+}
+
+.foot img{
+    width:95%;
+}
+
+#contact{
+    font-family: Life Savers, serif;
+    font-weight: 600;
+    font-size: calc(30px + 2vw);
+    margin: 2% 5%;
 }
 #pyt {
     color: forestgreen;
