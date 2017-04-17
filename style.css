@@ -113,6 +113,21 @@ div.navigation {
     color: forestgreen;
 }
 
+.profile {
+    position: relative;
+}
+
+.profile:hover .original{
+    display:none
+}
+
+.original {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.6;
+}
+
 #r {
     color: blue;
 }
