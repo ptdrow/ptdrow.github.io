@@ -89,8 +89,10 @@ div.navigation {
 }
 
 .main {
-    margin-top: calc(40px + 10vw);
-    width: 100%;
+    margin-top: calc(100px + 20vw);
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
     min-width: 300px;
 }
 
@@ -98,13 +100,84 @@ div.navigation {
     font-family: Life Savers, serif;
     font-weight: 600;
     font-size: calc(40px + 2vw);
-    margin: 2% 5%;
+    margin: 2% 0%;
+    text-align: center;
 }
 
 .main p{
     font-family: Open Sans,sans-serif;
     font-size: calc(10px + 1vw);
-    padding-left: 5%;
+    text-align: justify;
+    width: inherit;
+    margin: auto;
+    margin-bottom: 0.5em;
+}
+
+.main ul{
+    font-family: Open Sans,sans-serif;
+    font-size: calc(10px + 1vw);
+    width: inherit;
+    margin: auto;
+    padding-left: 3em;
+    padding-bottom: 0.5em;
+}
+
+.main img{
+    display: block;
+    margin: auto;
+    width: 60%;
+    min-width: 300px;
+    max-width: 575px;
+}
+
+div.code {
+    width: 80%;
+    white-space: nowrap;
+    margin: auto;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    padding: 0.5em;
+    background-color: WhiteSmoke;
+    border: 1px solid black;
+    overflow-x:auto;
+}
+.code p{
+    font-family: Iconsolata,monospace;
+    font-size: calc(8px + 1vw);
+    text-align: justify;
+    font-weight: 100;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 0;
+}
+
+span.blue {
+    color: blue;
+    font-weight: 600;
+}
+
+span.orange {
+    color: SandyBrown;
+    font-weight: 600;
+}
+
+span.darkcyan {
+    color: darkcyan;
+    font-weight: 600;
+}
+
+span.indigo {
+    color: indigo;
+}
+
+span.midnightblue {
+    color: midnightblue;
+    font-weight: 600;
+}
+
+
+.comment{
+    color: green;
 }
 
 .foot {
@@ -124,18 +197,7 @@ div.navigation {
     font-weight: 600;
     font-size: calc(30px + 2vw);
     margin: 2% 5%;
-    clear: left;
 }
-
-.copy p{
-    font-family: Open Sans, sans-serif;
-    font-weight: 100;
-    font-size: calc(6px + 0.5vw);
-    margin: auto;
-    margin-bottom: 1em;
-    width: 11em;
-}
-
 #pyt {
     color: forestgreen;
 }
@@ -155,6 +217,15 @@ div.navigation {
     opacity: 0.6;
 }
 
+.copy p{
+    font-family: Open Sans, sans-serif;
+    font-weight: 100;
+    font-size: calc(6px + 0.5vw);
+    margin: auto;
+    margin-bottom: 1em;
+    width: 11em;
+}
+
 #r {
     color: blue;
 }
@@ -168,49 +239,3 @@ div.navigation {
 #home {
     border-radius: 0px 0px 0px 10px;
 }
-
-div.tuto-container-all {
-    width: 80%;
-    min-width: 300px;
-    max-width: 100%;
-    margin: auto;
-}
-
-div.tuto-single {
-    display: block;
-    float:left;
-    width: 33.33%;
-    min-width: 300px;
-    margin: auto;
-}
-
-.tuto-single img{
-    display: block;
-    margin: auto;
-    margin-bottom: 0.75em;
-
-}
-
-.tuto-single a {
-    color: black;
-    text-decoration: none;
-    font-family: Life Savers, serif;
-    font-weight: 600;
-    font-size: calc(9px + 0.5vw);
-    text-align: center;
-    margin: 0;
-}
-
-.tuto-single a h3{
-    color: darkgray;
-    text-decoration: none;
-    font-family: Open Sans, sans-serif;
-    font-weight: 200;
-    font-size: calc(9px + 0.25vw);
-    text-align: left;
-    margin: auto;
-    width: 5.5em;
-}
-/*            <div class="tuto-single">
-                <a href="#contact">
-                    <img src="2017/04/17/images/thumbnail.png">*/
