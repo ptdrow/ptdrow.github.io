@@ -42,10 +42,10 @@ div.navigation {
     top:0;
     right: 0;
     min-width: 300px;
-    max-width: 500px;
+    max-width: 550px;
     box-shadow: -6px 8.75px 2px rgba(0,0,0,0.2);
     border-radius: 0px 0px 0px 10px;
-    width: 50%;
+    width: 55%;
 }
 
 .navigation h1 {
@@ -73,7 +73,7 @@ div.navigation {
 }
 
 .navigation li a{
-    font-size: calc(12px + 0.5vw);
+    font-size: calc(12px + 0.75vw);
     color: black;
     display: block;
     text-decoration: none;
@@ -91,7 +91,8 @@ div.navigation {
     margin-top: calc(40px + 10vw);
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
+    width: 90%;
+    padding: 1% 0;
     min-width: 300px;
 }
 
@@ -99,7 +100,7 @@ div.navigation {
     font-family: Life Savers, serif;
     font-weight: 600;
     font-size: calc(40px + 2vw);
-    margin: 2% 0%;
+    margin: 0;
     text-align: center;
 }
 
@@ -191,24 +192,28 @@ div.navigation {
     border-radius: 0px 0px 0px 10px;
 }
 
+#tutorial {
+    text-align: center;
+}
+
 div.tuto-container-all {
-    width: 80%;
+    width: 100%;
     min-width: 300px;
-    max-width: 100%;
-    margin: auto;
+    margin: 0;
+    text-align: center;
 }
 
 div.tuto-single {
-    display: block;
-    float:left;
-    width: 33.33%;
-    min-width: 300px;
-    margin: auto;
+    display: inline-block;
+    width: 25%;
+    min-width: 150px;
+    padding: 1em;
 }
 
 .tuto-single img{
-    display: block;
-    margin: auto;
+    width: 100%;
+    min-width: 150px;
+    max-width: 280px;
     margin-bottom: 0.75em;
     border-radius: 10px;
 }
@@ -220,6 +225,7 @@ div.tuto-single {
     font-weight: 600;
     font-size: calc(9px + 0.5vw);
     text-align: center;
+    width: 100%;
     margin: 0;
 }
 
