@@ -4,6 +4,7 @@
     <title>Pedro Villarroel's Webpage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="styleposts.css" type="text/css" rel="stylesheet">
+    <link href="style.css" type="text/css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Life+Savers" type="text/css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Sacramento" type="text/css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" type="text/css" rel="stylesheet">
@@ -179,12 +180,12 @@
         <p>Por &uacute;ltimo dibujamos el perfil con el nuevo seguidor.</p>
         <div class="code">
             <p class="comment"># Draw the curve of the cam (interpolating through the suppossed contact points)</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;points.<span class="midnightblue">append</span>(points[<span class="indigo">0</span>])</p>
+            <p>points.<span class="midnightblue">append</span>(points[<span class="indigo">0</span>])</p>
             <p>rs.<span class="midnightblue">ObjectColor</span>(rs.<span class="midnightblue">AddInterpCurve</span>(points, degree=<span class="indigo">3</span>, knotstyle=<span class="indigo">3</span>),magenta)</p>
         </div>
         <img src="images/rhino_python5.png">
         <p>Como vemos en la imagen la estimaci&oacute;n de los puntos de contacto ahora fue mucho mejor que la primera vez (curva magenta). Esta nueva curva ya no corta de forma apreciable al perfil del seguidor, como lo hace la curva amarilla. En caso de no ser suficientemente buena se puede iterar una vez m&aacute;s, pero usando ahora los nuevos puntos de contacto como los puntos que definen el pol&iacute;gono.</p>
-        <p>Ya tenemos listo el c&oacute;digo que dibuja la leva, si quieren pueden remover los c&oacute;digos que dibujan elementos de construcci&oacute;n para obtener s&oacute;lo el perfil de la leva, y modificar las variables de entrada para obtener otras levas.</p>
+        <p>Ya tenemos listo el <a href="camtutorial.py">c&oacute;digo que dibuja la leva</a>, si quieren pueden remover los c&oacute;digos que dibujan elementos de construcci&oacute;n para obtener s&oacute;lo el perfil de la leva, y modificar las variables de entrada para obtener otras levas.</p>
     </div>
     <h1 id="contact">Contacto</h1>
     <div class="foot">

@@ -89,7 +89,9 @@ div.navigation {
 
 .main {
     margin-top: calc(40px + 10vw);
-    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
     min-width: 300px;
 }
 
@@ -97,13 +99,34 @@ div.navigation {
     font-family: Life Savers, serif;
     font-weight: 600;
     font-size: calc(40px + 2vw);
-    margin: 2% 5%;
+    margin: 2% 0%;
+    text-align: center;
 }
 
 .main p{
     font-family: Open Sans,sans-serif;
     font-size: calc(10px + 1vw);
-    padding-left: 5%;
+    text-align: justify;
+    width: inherit;
+    margin: auto;
+    margin-bottom: 0.5em;
+}
+
+.main ul{
+    font-family: Open Sans,sans-serif;
+    font-size: calc(10px + 1vw);
+    width: inherit;
+    margin: auto;
+    padding-left: 3em;
+    padding-bottom: 0.5em;
+}
+
+.main img{
+    display: block;
+    margin: auto;
+    width: 60%;
+    min-width: 300px;
+    max-width: 575px;
 }
 
 .foot {
@@ -187,7 +210,7 @@ div.tuto-single {
     display: block;
     margin: auto;
     margin-bottom: 0.75em;
-
+    border-radius: 10px;
 }
 
 .tuto-single a {
@@ -210,6 +233,3 @@ div.tuto-single {
     margin: auto;
     width: 5.5em;
 }
-/*            <div class="tuto-single">
-                <a href="#contact">
-                    <img src="2017/04/17/images/thumbnail.png">*/
