@@ -60,7 +60,7 @@ div.navigation {
 
 .navigation ul {
     font-family: Life Savers, serif;
-    letter-spacing: 0.325vw;
+    letter-spacing: 0.25vw;
     list-style: none;
     width: 100%;
 }
@@ -73,13 +73,12 @@ div.navigation {
 }
 
 .navigation li a{
-    font-size: calc(13px + 1vw);
+    font-size: calc(12px + 0.5vw);
     color: black;
     display: block;
     text-decoration: none;
     text-align: center;
     width: 100%;
-    
 }
 
 .navigation ul li a:hover{
