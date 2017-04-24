@@ -49,10 +49,10 @@ div.navigation {
 }
 
 .navigation h1 {
-    font-family: Sacramento, serif;
-    font-size: calc(25px + 2vw);
+    font-family: Dancing Script, serif;
+    font-size: calc(20px + 2vw);
     font-weight: 100;
-    height: 1em;
+    height: 1.25em;
     margin-bottom: 0.125em;
     text-align: center;
 }
