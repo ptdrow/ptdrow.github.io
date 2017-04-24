@@ -110,11 +110,10 @@ div.navigation {
 }
 
 .main {
-    margin-top: calc(40px + 10vw);
     margin-left: auto;
     margin-right: auto;
     width: 90%;
-    padding: 1% 0;
+    padding-top: calc(75px + 5vw);
     min-width: 300px;
 }
 
