@@ -11,6 +11,7 @@ div.code {
     border: 1px solid black;
     overflow-x:auto;
 }
+
 .code p{
     font-family: Iconsolata,monospace!important;
     font-size: calc(8px + 1vw)!important;
@@ -43,7 +44,6 @@ span.midnightblue {
     color: midnightblue;
     font-weight: 600;
 }
-
 
 .comment{
     color: green;
