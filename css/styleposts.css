@@ -1,5 +1,6 @@
 div.code {
-    width: 80%;
+	min-width: 300px;
+    width: 60%;
     white-space: nowrap;
     margin: auto;
     margin-bottom: 1em;

@@ -125,7 +125,7 @@ div.navigation {
     font-family: Life Savers, serif;
     font-weight: 600;
     font-size: calc(40px + 2vw);
-	line-height: 0.8em;
+	line-height: 1.125em;
     margin: 0;
 	margin-bottom: 0.6em;
     text-align: center;
@@ -141,15 +141,11 @@ div.navigation {
 	min-width: 300px;
 }
 
-.main p::first-letter {
-	color: deepskyblue;
-    font-size: xx-large;
-}
-
 .main ul{
     font-family: Open Sans,sans-serif;
     font-size: calc(10px + 1vw);
-    width: inherit;
+    width: 55%;
+	min-width: 270px;
     margin: auto;
     padding-left: 3em;
     padding-bottom: 0.5em;
