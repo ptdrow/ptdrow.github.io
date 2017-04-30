@@ -57,6 +57,10 @@ div.navigation {
     text-align: center;
 }
 
+.navigation h1::first-letter, .first {
+	color: deepskyblue;
+}
+
 .navigation a  {
     text-decoration: none;
     color: DarkGray;
@@ -121,7 +125,9 @@ div.navigation {
     font-family: Life Savers, serif;
     font-weight: 600;
     font-size: calc(40px + 2vw);
+	line-height: 0.8em;
     margin: 0;
+	margin-bottom: 0.6em;
     text-align: center;
 }
 
@@ -129,9 +135,15 @@ div.navigation {
     font-family: Open Sans,sans-serif;
     font-size: calc(10px + 1vw);
     text-align: justify;
-    width: inherit;
+    width: 60%;
     margin: auto;
     margin-bottom: 0.5em;
+	min-width: 300px;
+}
+
+.main p::first-letter {
+	color: deepskyblue;
+    font-size: xx-large;
 }
 
 .main ul{
