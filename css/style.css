@@ -57,8 +57,11 @@ div.navigation {
     text-align: center;
 }
 
-.navigation h1::first-letter, .first {
+.first {
 	color: deepskyblue;
+	font-family: Dancing Script, serif;
+    font-size: calc(20px + 2vw);
+    font-weight: 100;
 }
 
 .navigation a  {
