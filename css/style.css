@@ -157,6 +157,8 @@ div.navigation {
 .main img{
     display: block;
     margin: auto;
+	margin-top: 1.25em;
+	margin-bottom: 1em;
     width: 60%;
     min-width: 300px;
     max-width: 575px;
