@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Pedro Villarroel's Webpage</title>
+    <!-- Styling -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://ptdrow.github.io/css/styleposts.css" type="text/css" rel="stylesheet">
+    <link href="https://ptdrow.github.io/css/style.css" type="text/css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Life+Savers" type="text/css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" type="text/css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" type="text/css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Iconsolata" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="style2.css" type="text/css" rel="stylesheet">
+    <!-- Alternate languages -->
+    <link rel="alternate" href="https://ptdrow.github.io/2017/05/04/r_strava_es.html" hreflang="es">
+    <!-- Google Analytics -->
+    <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-63590859-3', 'auto');
+          ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <div class="navigation">
+      <h1><span class="first">P</span>edro <span class="first">D</span>. <span class="first">V</span>illarroel <span class="first">F</span>.</h1>
+      <p>Espa&ntilde;ol<p>
+        <ul>
+            <li><a id="home" href="https://ptdrow.github.io">Inicio</a></li>
+            <li class="dropdown">
+              <a href="https://ptdrow.github.io/tutoriales.html" class="dropbtn">Tutoriales</a>
+            <!--  <></>   
+            <div class="dropdown-content">
+              <a id= "pyt" href="#">Python</a>
+              <a id= "r" href="#">R</a>
+              <a id= "rhino" href="#">Rhinoceros</a>
+            </div> -->
+            </li>
+            <li><a href="#contact">Contacto</a></li>
+        </ul>
+      </div>
+    <div class="main">
+        <h1>C&oacute;mo acceder al API de Strava con R</h1>
+        <p><span class="first">E</span>n este tutorial les muestro como utilizar la librería rStrava para descargar data directamente del API de Strava, la cual podríamos luego analizar y graficar con los demás paquetes en R.</p>
+		<p>Para obtener la data de Strava en R podemos utilizar el paquete rStrava el cual tiene funciones tanto para hacer web scrapping en las páginas de Strava como para conectarse directamente con el API. En este tutorial usaremos estas últimas.</p>
+		<p>Primero instalamos los paquetes que vamos a utilizar:</p>
+		<div class="code">
+            <p>install.packages('devtools','httr')</p>
+        </div>
+		<p>devtools lo utilizaremos para instalar rStrava desde github, ya que no está en los repositorios de CRAN, y httr es una dependencia de rStrava que se utiliza para autenticación y descarga del API. Si ya tienes instalados estos paquetes usa library o require.</p>
+		<p>Ahora instalamos rStrava:</p>
+		<div class="code">
+			<p>devtools::install_github('fawda123/rStrava')</p>
+		</div>
+		<p>Para poder descargar data del API de Strava necesitamos registrar una aplicación <a href="https://www.strava.com/settings" target="_blank">aquí</a>. Llena los datos de tu nueva aplicación y en la casilla de "Dominio de devolución de la llamada de autorización" colocas "localhost:1410".</p>
+		<p>Una vez registrada la nueva aplicación Strava nos va a asignar un ID de cliente y un Secreto de cliente que los guardaremos en sus respectivas variables en R para proceder a autenticar nuestra sesión con la aplicación:</p>
+		<!-- recordar usar el escape &lt; -->
+		<p></p><p></p><p></p>
+		<div class="code">
+			<p>app_name <- # Elegido por el usuario</p>
+			<p>app_client_id  <- 'myid' # Asignado por Strava</p>
+			<p>app_secret <- 'xxxxxxxx' # secreto alfanumerico assignado por Strava</p>	
+		</div>
+		<div class="code"></div><div class="code"></div><div class="code"></div>
+
+
+
+Una vez registrada la nueva aplicación Strava nos va a asignar un ID de cliente y un Secreto de cliente que los guardaremos en sus respectivas variables en R para proceder a autenticar nuestra sesión con la aplicación:
+
+
+
+Si quieres que en los resultados de tu aplicación aparezca data privada a la que tienes acceso desde tu cuenta usa:
+app_scope <- 'view_private'
+
+De lo contrario usa:
+app_scope <- 'public'
+
+Ahora con estas variables autenticamos nuestra aplicación para obtener un token de acceso al API:
+
+strava_token <- strava_oauth(app_name, app_client_id, app_secret, app_scope)
+
+esta función abrirá una ventana de tu navegador predeterminado hacia la página de autenticación de tu aplicación. Si no has abierto tu sesión de Strava te pedirá que lo hagas y luego preguntará si quieres permitir el acceso a la aplicación. Una vez que le des acceso aparece un mensaje como este:
+Authentication complete. Please close this page and return to R.
+
+Ya puedes cerrar el navegador y continuar en R.
+La respuesta de Strava fue grabada en la variable strava_token, sin embargo no está configurada de forma que sea útil para las funciones de rStrava, por lo que usamos la función config de httr para ello:
+
+stoken <- config(token = strava_token)
+
+Ahora sí tenemos el token que usaremos en todas la funciones de API de rStrava. Este token es válido para esta aplicación, con el usuario que abrió su sesión y con los alcances (scopes) preseleccionados. Si quieres cambiar alguno de estos valores tienes que repetir el proceso, sin embargo puedes guardar cada token en una variable diferente y usarlos cuando requieras los cambios.
+
+Procedemos a verificar que stoken funciona con las funciones de rStrava:
+
+my_info <- get_athlete(stoken)
+my_info$username
+my_info$friend_count
+my_info$follower_count
+
+Si la data se descargó deberías ver tu nombre de usuario y la cantidad de amigos y seguidores que tienes en Strava.
+
+Ahora ya tienes acceso al API de Strava desde R. Puedes ver una lista de las funcionalidades del paquete rStrava usando la ayuda:
+help.search('token', package = 'rStrava')
+
+Y ahora a jugar con la data y R para ver qué información puedes revelar. Algunos ejemplos de lo que puedes hacer con esta data:
+
+		
+		
+		
+		
+		
+		
+		
+		
+		<p>Para este ejemplo usar&eacute; los siguientes datos:</p>
+        <ul><li>Radio base de la leva ( R ) = 30mm</li>
+            <li>Radio del seguidor ( r ) = 5 mm</li>
+            <li>Movimiento del seguidor = senoidal</li>
+            <li>M&aacute;ximo recorrido del seguidor ( h ) = 15 mm</li></ul>
+        <p>Primero empiezo definiendo los puntos por los que deber&iacute;a pasar el centro del seguidor seg&uacute;n una funci&oacute;n senoidal. La funci&oacute;n que quiero es una que pase por 0mm de altura a 0&ordm;, por la altura m&aacute;xima (h) a 180&ordm; y regrese a 0mm a 360&ordm;, para que sea continua en ese punto.</p>
+        <p>Una soluci&oacute;n podr&iacute;a ser usar la parte positiva de la funci&oacute;n seno (de 0&ordm; a 180&ordm;) y expandirla horizontalmente para tener la misma forma pero en el rango de 0&ordm; a 360&ordm;. Con eso el perfil pasar&iacute;a por los puntos deseados pero sus derivadas no ser&iacute;an continuas en 360&ordm;, lo que puede generar problemas din&aacute;micos.</p>
+        <img src="images/sinX1.png">
+        <p>Para solucionar esto usaremos la funci&oacute;n seno en el rango comprendido entre -90&ordm; y 270&ordm;, traslad&aacute;ndola horizontal y verticalmente para que coincida con los puntos que queremos. Esto lo hacemos primero trasladando 90&ordm; en el eje horizontal (curva roja), y luego sum&aacute;ndole uno para trasladarla verticalmente (curva azul). Por &uacute;ltimo dividimos entre 2 y multiplicamos por h para obtener la funci&uacute;n que busc&aacute;bamos (curva verde):</p>
+        <img src="images/sinX2.png">
+        <p>Ahora vamos a trasladar esta funci&oacute;n a Rhino usando Python. Para ello abrimos el editor de scripts en Rhino haciendo click en /Tools/PythonScript/Editor y creamos un nuevo script en blanco:</p>
+        <img src="images/rhino_python1.png">
+        <p>Lo primero que debemos hacer es importar las librer&iacute;as que utilizaremos, que ser&aacute;n rhinoscriptsyntax para poder usar los comandos de rhino con python, y math para calcular nuestra funci&oacute;n senoidal. Luego escribimos un c&oacute;digo que calcule las alturas de nuestra funci&oacute;n senoidal para diferentes grados en el rango de 0 a 360 grados:</p>
+        <div class="code">
+            <p><span class="blue">import</span> rhinoscriptsyntax <span class="darkcyan">as</span> rs</p>
+            <p><span class="blue">import</span> math</p>
+            <br>
+            <p class="comment"># Range of degrees from 0 to 360 by delta</p>
+            <p>delta = <span class="indigo">15</span></p>
+            <p>degrees = <span class="midnightblue">range</span>(<span class="indigo">0</span>,<span class="indigo">360</span>+delta,delta)</p>
+            <br>
+            <p class="comment"># Create a sin function that goes from 0 to h</p>
+            <p class="comment"># in the interval of 0 to 180 degrees and goes back to 0 from 180 to 360.</p>
+            <p>h = <span class="indigo">15</span></p>
+            <p>L = []</p>
+            <br>
+            <p><span class="blue">for</span> alpha <span class="blue">in</span> <span class="midnightblue">range</span>(-<span class="indigo">90</span>,<span class="indigo">270</span>+delta,delta): <span class="comment">#Translates the sin function horizontally</span></p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;radian_alpha = alpha * math.pi / <span class="indigo">180</span></p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;L.<span class="midnightblue">append(</span>(<span class="midnightblue">round</span>(math.<span class="midnightblue">sin</span>(radian_alpha),<span class="indigo">4</span>) + <span class="indigo">1</span> )* h/<span class="indigo">2</span>) <span class="comment"># Adjust the sin function vertically</span></p>
+        </div>
+        <p>En este tutorial voy a dibujar muchos elementos adicionales al perfil de la leva solo para ilustrar gr&aacute;ficamente el proceso de dibujo del perfil. Al final se pueden borrar tanto en las ventanas de Rhino como desde el script de Python. Para esto &uacute;ltimo debes conocer el id de cada elemento que quieras borrar por lo que recomiendo guardarlos en listas.</p>
+        <p>Agrego al script la variables para el movimiento de la leva que definimos anteriormente. Adem&aacute;s voy a crear algunas listas vac&iacute;as para guardar valores y elementos de dibujo. M&aacute;s adelante veremos para que sirve cada uno:</p>
+        <div class="code">
+            <p class="comment"># Base radius of the cam</p>
+            <p>R = <span class="indigo">30</span></p>
+            <br>
+            <p class="comment"># Radius of the follower</p>
+            <p>r = <span class="indigo">5</span></p>
+            <br>
+            <p class="comment"># Rotation center of the cam</p>
+            <p>p_zero = (<span class="indigo">0</span>,<span class="indigo">0</span>,<span class="indigo">0</span>)</p>
+            <br>
+            <p class="comment"># Drawing colors</p>
+            <p>red =(<span class="indigo">255</span>,<span class="indigo">0</span>,<span class="indigo">0</span>)</p>
+            <p>blue = (<span class="indigo">0</span>,<span class="indigo">0</span>,<span class="indigo">255</span>)</p>
+            <p>magenta = (<span class="indigo">255</span>,<span class="indigo">0</span>,<span class="indigo">255</span>)</p>
+            <p>yellow = (<span class="indigo">255</span>,<span class="indigo">255</span>,<span class="indigo">0</span>)</p>
+            <p>green = (<span class="indigo">0</span>,<span class="indigo">255</span>,<span class="indigo">0</span>)</p>
+            <br>
+            <p class="comment"># Lists of points and lines</p>
+            <p>points = []</p>
+            <p>profile_line = []</p>
+            <p>radial_line = []</p>
+            <p>tangent_points =[]</p>
+        </div>
+        <p>Con estos valores podemos dibujar la posici&oacute;n del seguidor para cada &aacute;ngulo con respecto a la leva. El proceso que uso es el siguiente:</p>
+        <ul><li>Crear un ciclo "for" que recorra el rango de los grados.</li>
+            <li>Dibujar una linea del centro de rotaci&oacute;n al centro del seguidor en cada &aacute;ngulo. Para ello utilizo la funci&oacute;n Polar, ingresando el centro de la leva (p_zero), el &aacute;ngulo (degree), y la distancia de centro a centro, que es la suma del radio base de la leva, el radio del seguidor y la altura de la funci&oacute;n senoidal para cada &aacute;ngulo.</li>
+            <li>Guardar la posici&oacute;n del centro del seguidor para luego dibujar su movimiento alrededor de la rueda.</li>
+            <li>Dibujar el seguidor para cada posici&oacute;n</li>
+            <li>Suponer que el punto de contacto entre el seguidor y la leva es la intersecci&oacute;n del seguidor y el radio de la leva.</li>
+        </ul>        
+        <div class="code">
+            <p>rs.<span class="midnightblue">AddCircle</span>(p_zero,R)</p>
+            <br>
+            <p class="comment"># Draw lines and circles for each degree with the corresponding length</p>
+            <p><span class="blue">for</span> (i,degree) <span class="blue">in</span> <span class="midnightblue">enumerate</span>(degrees[:-<span class="indigo">1</span>]):</p>
+            <br>
+            <p class="comment">&nbsp;&nbsp;&nbsp;&nbsp;# Draw a line from the rotation center to the position of the follower</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;p_end = rs.<span class="midnightblue">Polar</span>(p_zero, degree,R+r+L[i])</p><p>&nbsp;&nbsp;&nbsp;&nbsp;radial_line.<span class="midnightblue">append</span>(rs.<span class="midnightblue">AddLine</span>(p_zero,p_end))</p>
+            <br>
+            <p class="comment">&nbsp;&nbsp;&nbsp;&nbsp;# Save the position of the follower's center for drawing the motion of it</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;points.<span class="midnightblue">append</span>(p_end)</p>
+            <br>
+            <p class="comment">&nbsp;&nbsp;&nbsp;&nbsp;#Draw the follower</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;circle = rs.<span class="midnightblue">AddCircle</span>(p_end,r)</p>
+        </div>
+        <p>El punto de contacto entre la leva y el seguidor se supone inicialmente ya que es muy dif&iacute;cil saber a priori donde est&aacute; ubicado. En principio uno esperar&iacute;a que este punto estuviese en la l&iacute;nea que une los centros de la leva con el seguidor, pero en la pr&aacute;ctica esto no siempre es as&iacute;. Dependiendo del tama&ntilde;o del seguidor, las pendientes y complejidad del movimiento del seguidor respecto a la leva, este punto de contacto puede moverse ligeramente hacia un lado o el otro. Muchas veces esta diferencia es muy peque&ntilde;a y puede aceptarse dentro del dise&ntilde;o, entendiendo que el movimiento del seguidor va a distar ligeramente del movimiento te&oacute;rico al que se dise&ntilde;&oacute;, no siendo grave especialmente porque en los puntos m&aacute;s importantes del recorrido de la leva (m&aacute;ximo y m&iacute;nimo) el punto de contacto suele coincidir con la intersecci&oacute;n del radio con la circunferencia del seguidor. En otras aplicaciones donde la precisi&oacute;n de este movimiento sea de mayor importancia, por ejemplo, donde sea cr&iacute;tico tener bien modelado y controlado las fuerzas arm&oacute;nicas del sistema, esta suposici&oacute;n puede no ser satisfactoria.</p>
+        <p>Vamos a dibujar la leva como resulta si suponemos que el punto de contacto est&aacute; siempre sobre la l&iacute;nea que une los centros.</p>
+        <div class="code">
+            <p class="comment"># Draw the curve of the motion of the follower</p>
+            <p>points.<span class="midnightblue">append</span>(points[<span class="indigo">0</span>])</p>
+            <p>rs.<span class="midnightblue">AddInterpCurve</span>(points, degree=<span class="indigo">3</span>, knotstyle=<span class="indigo">3</span>)</p>
+            <br>
+            <p class="comment"># Draw the curve of the original supposed contact points to show the difference</p>
+            <p>tangent_points.<span class="midnightblue">append</span>(tangent_points[<span class="indigo">0</span>])</p>
+            <p>rs.<span class="midnightblue">ObjectColor</span>(rs.<span class="midnightblue">AddInterpCurve</span>(tangent_points, degree=<span class="indigo">3</span>, knotstyle=<span class="indigo">3</span>),yellow)</p>
+        </div>
+        <img src="images/rhino_python2.png">
+        <p>En la imagen se ven las l&iacute;neas opcionales de construcci&oacute;n en negro y la leva preliminar en amarillo. Vamos a hacer un zoom para ver c&oacute;mo est&aacute; quedando el contacto entre la leva y el seguidor:</p>
+        <img src="images/rhino_python3.png">
+        <p>Como vemos en el zoom de la imagen para ciertas posiciones el perfil de leva resultante con dicha suposici&oacute;n no es tangente al perfil del seguidor, sino que lo corta, lo que ocasiona que en esas posiciones la leva estar&aacute; ligeramente por encima de la posici&oacute;n te&oacute;rica esperada. Como mencion&eacute; anteriormente esto puede o no ser un problema seg&uacute;n la aplicaci&oacute;n.</p>
+        <p>A continuaci&oacute;n voy a hacer algunos c&aacute;lculos para mejorar las estimaci&oacute;n del punto de contacto y as&iacute; obtener un mejor perfil.</p>
+        <p>Te&oacute;ricamente sabemos que en el punto de contacto entre dos curvas tangentes, las rectas tangentes a cada curva que pasan por ese punto son iguales. En este caso las curvas ser&iacute;an el perfil del seguidor, la cual conozco para cada &aacute;ngulo, pero desconozco su punto de contacto, y el perfil de la leva para la cual tengo una suposici&oacute;n inicial que comete errores relativamente peque&ntilde;os pero inadmisibles para alguna aplicaci&oacute;n dada.</p>
+        <p>Podemos suponer que la leva es un pol&iacute;gono de infinitos lados de longitud infinitesimal, que unen el punto de contacto entre la leva y el seguidor en un instante, con el punto de contacto en un pr&oacute;ximo instante, y as&iacute; hasta completar el perfil. Ahora bien, si en vez de pensar en infinitos lados, pensamos en una cantidad finita de lados igual a la cantidad de particiones de la circunferencia que hicimos inicialmente, obtendremos una leva poligonal.</p>
+        <p>Para dibujar una leva poligonal voy a utilizar el mismo ciclo for con el que calcul&eacute; los puntos del movimiento del seguidor y agregarle c&oacute;digo que me dibuje una l&iacute;nea recta entre dos puntos consecutivos. Por la forma en que se ejecuta el ciclo voy a necesitar precalcular en cada &aacute;ngulo el punto de contacto del siguiente &aacute;ngulo. El siguiente c&oacute;digo muestra las l&iacute;neas que le agregu&eacute; al ciclo for:</p>
+        <div class="code">
+            <p class="comment">&nbsp;&nbsp;&nbsp;&nbsp;#Calc the contact point of the next follower position</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;p_tangent_next = rs.<span class="midnightblue">Polar</span>(p_zero, degrees[i+<span class="indigo">1</span>],R+L[i+<span class="indigo">1</span>])</p>
+            <br>
+            <p class="comment">&nbsp;&nbsp;&nbsp;&nbsp;# Draw lines connecting the supposed contact points (profile_line)</p><p>&nbsp;&nbsp;&nbsp;&nbsp;profile_line.<span class="midnightblue">append</span>(rs.<span class="midnightblue">AddLine</span>(p_tangent,p_tangent_next))</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;rs.<span class="midnightblue">ObjectColor</span>(profile_line[i], color=red)</p>
+        </div>
+        <p>En cada posici&oacute;n podemos dibujar una tangente al seguidor que sea perpendicular al radio de la leva. Si bien no podemos dibujar en ese punto una tangente al perfil poligonal de la leva, podemos tomar los lados adyacentes como una referencia a una supuesta tangente. Es decir la supuesta tangente a la leva que pasa por ese punto debe tener &aacute;ngulos iguales con ambos lados adyacentes. Entonces el problema se traduce a buscar en qu&eacute; punto de la circunferencia del seguidor se genera una tangente que es igual a la tangente supuesta, o lo que es lo mismo, que mantiene &aacute;ngulos iguales con los lados anterior y posterior de la poligonal. Voy a agregar el siguiente c&oacute;digo para dibujar las tangentes del seguidor perpendiculares al radio de la leva:</p>
+        <div class="code">
+            <p class="comment">&nbsp;&nbsp;&nbsp;&nbsp;# Draw tangent lines at the supposed contact points </p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;p_end = rs.<span class="midnightblue">Polar</span>(p_tangent, degree+<span class="indigo">90</span>,<span class="indigo">10</span>)</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;rs.<span class="midnightblue">ObjectColor</span>(rs.<span class="midnightblue">AddLine</span>(p_tangent,p_end),blue)</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;p_end = rs.<span class="midnightblue">Polar</span>(p_tangent, degree-<span class="indigo">90</span>,<span class="indigo">10</span>)</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;rs.<span class="midnightblue">ObjectColor</span>(rs.<span class="midnightblue">AddLine</span>(p_tangent,p_end),blue)</p>
+        </div>
+        <p>Ejecutando el script obtenemos las nuevas l&iacute;neas de la poligonal (rojo) y las tangentes (azul). La siguiente imagen es un zoom alrededor de uno de los puntos de contacto leva-seguidor:</p>
+        <img src="images/rhino_python4.png">
+        <p>Como vemos en la imagen ambos lados (anterior y posterior) de la poligonal en ese punto forman un &aacute;ngulo con la tangente del c&iacute;rculo.</p>
+        <img src="images/cam_angles.png">
+        <p> En la imagen se muestran los &aacute;ngulos &alpha; y &beta;, que son los que podemos medir f&aacute;cilmente con las funciones de Rhino; los &aacute;ngulos &alpha;' y &beta;', que son los que forman las poligonales con la tangente al seguidor y queremos que sean iguales (&alpha;'' y &beta;''), para lo que rotamos la tangente hasta un &aacute;ngulo &gamma;. Analizando la geometr&iacute;a de los &aacute;ngulos, el &aacute;ngulo &gamma;, que indica cu&aacute;n rotado est&aacute; el punto de contacto en la circunferencia del seguidor est&aacute; dado por:</p>
+        <img src="images/angle_equations.png">
+        <p>Ahora bien, cada vez que modifiquemos la posici&oacute;n del punto de contacto, las orientaciones de las poligonales tambi&eacute;n van a modificarse ligeramente, por lo que la nueva soluci&oacute;n tampoco va a ser exacta. Sin embargo ser&aacute; mucho m&aacute;s precisa que la suposici&oacute;n original y en caso de necesitar mayor precisi&oacute;n se puede iterar hasta que los errores converjan a un error aceptable. Para nuestro caso con una iteraci&oacute;n ser&aacute; suficiente.</p>
+        <p>Ahora voy a agregar c&oacute;digo para calcular &gamma; a partir de &alpha; y &beta;, y conseguir el nuevo punto de contacto con la funci&oacute;n Polar:</p>
+        <div class="code">
+            <p class="comment"># Calculate a new supposed contact points</p>
+            <p>points = []</p>
+            <br>
+            <p><span class="blue">for</span> i <span class="blue">in</span> <span class="midnightblue">xrange</span>(<span class="midnightblue">len</span>(degrees)-<span class="indigo">1</span>]):</p>
+            <p class="comment">&nbsp;&nbsp;&nbsp;&nbsp;# Calculate the difference(angle) between the radial lines and profile lines</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;alpha = rs.<span class="midnightblue">Angle2</span>(radial_line[i],profile_line[i])[<span class="indigo">0</span>]</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;beta = rs.<span class="midnightblue">Angle2</span>(radial_line[i],profile_line[i-<span class="indigo">1</span>])[<span class="indigo">0</span>]</p>
+            <br>
+            <p class="comment">&nbsp;&nbsp;&nbsp;&nbsp;# Calculate the angle were the new contact point is suppossed to be</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;gamma = <span class="indigo">90</span> - (alpha+beta)/<span class="indigo">2</span></p>
+            <br>
+            <p class="comment">&nbsp;&nbsp;&nbsp;&nbsp;# Draw a line and store the end point (new supposed contact point)</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;p_start = rs.<span class="midnightblue">Polar</span>(p_zero, degrees[i],R+L[i]+r)</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;p_end = rs.<span class="midnightblue">Polar</span>(p_start, degrees[i]+<span class="indigo">180</span>-gamma,r)</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;rs.<span class="midnightblue">ObjectColor</span>(rs.<span class="midnightblue">AddLine</span>(p_start,p_end), color=green)</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;points.<span class="midnightblue">append</span>(p_end)</p>
+        </div>
+        <p>Por &uacute;ltimo dibujamos el neuvo perfil:</p>
+        <div class="code">
+            <p class="comment"># Draw the curve of the cam (interpolating through the suppossed contact points)</p>
+            <p>points.<span class="midnightblue">append</span>(points[<span class="indigo">0</span>])</p>
+            <p>rs.<span class="midnightblue">ObjectColor</span>(rs.<span class="midnightblue">AddInterpCurve</span>(points, degree=<span class="indigo">3</span>, knotstyle=<span class="indigo">3</span>),magenta)</p>
+        </div>
+        <img src="images/rhino_python5.png">
+        <p>Como vemos en la imagen la estimaci&oacute;n de los puntos de contacto ahora fue mucho mejor que la primera vez (curva magenta). Esta nueva curva ya no corta de forma apreciable al perfil del seguidor, como lo hace la curva amarilla. En caso de no ser suficientemente buena se puede iterar una vez m&aacute;s, pero usando ahora los nuevos puntos de contacto como los puntos que definen el pol&iacute;gono.</p>
+        <p>Ya tenemos listo el <a href="camtutorial.py">c&oacute;digo que dibuja la leva</a>, si quieren pueden remover los c&oacute;digos que dibujan elementos de construcci&oacute;n para obtener s&oacute;lo el perfil de la leva, y modificar las variables de entrada para obtener otras levas.</p>
+		<div id="disqus_thread"></div>
+		<script>
+		var disqus_config = function () {
+		this.page.url = 'https://ptdrow.github.io/2017/04/19/rhino_python_leva.html';
+		this.page.identifier = 'RhinoPythonCamDesign';
+		};
+		(function() { // DON'T EDIT BELOW THIS LINE
+		var d = document, s = d.createElement('script');
+		s.src = 'https://ptdrow.disqus.com/embed.js';
+		s.setAttribute('data-timestamp', +new Date());
+		(d.head || d.body).appendChild(s);
+		})();
+		</script>
+		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    <h1 id="contact">Contacto</h1>
+    <div class="foot">
+        <a id= "facebook" href="https://www.facebook.com/ptdrow" target="_blank"><img src="https://ptdrow.github.io/images/facebookMed.png"></a>
+        <a id= "strava" href="https://www.strava.com/athletes/ptdrow" target="_blank"><img src="https://ptdrow.github.io/images/stravaMed.png"></a>
+        <a id= "instagram" href="https://www.instagram.com/ptdrow/" target="_blank"><img src="https://ptdrow.github.io/images/instaMed.png"></a>
+        <a id= "twitter" href="https://twitter.com/pedrodvf" target="_blank"><img src="https://ptdrow.github.io/images/twitterMed.png"></a>
+    </div>
+    <div class="copy">
+        <p>&copy; 2017 Pedro Villarroel</p>
+    </div>
+  </body>
+</html>
+<!--  <></>   -->
