@@ -49,27 +49,27 @@
 		<p>Para obtener la data de Strava en R podemos utilizar el paquete rStrava el cual tiene funciones tanto para hacer web scrapping en las páginas de Strava como para conectarse directamente con el API. En este tutorial usaremos estas últimas.</p>
 		<p>Primero instalamos los paquetes que vamos a utilizar:</p>
 		<div class="code">
-            <p>install.packages('devtools','httr')</p>
+            <p>install.packages(<span class="green">'devtools'</span>,<span class="green">'httr'</span>)</p>
         </div>
 		<p>devtools lo utilizaremos para instalar rStrava desde github, ya que no está en los repositorios de CRAN, y httr es una dependencia de rStrava que se utiliza para autenticación y descarga del API. Si ya tienes instalados estos paquetes usa library o require.</p>
 		<p>Ahora instalamos rStrava:</p>
 		<div class="code">
-			<p>devtools::install_github('fawda123/rStrava')</p>
+			<p>devtools::install_github(<span class="green">'fawda123/rStrava'</span>)</p>
 		</div>
 		<p>Para poder descargar data del API de Strava necesitamos registrar una aplicación <a href="https://www.strava.com/settings" target="_blank">aquí</a>. Llena los datos de tu nueva aplicación y en la casilla de "Dominio de devolución de la llamada de autorización" colocas "localhost:1410".</p>
 		<p>Una vez registrada la nueva aplicación Strava nos va a asignar un ID de cliente y un Secreto de cliente que los guardaremos en sus respectivas variables en R para proceder a autenticar nuestra sesión con la aplicación:</p>
 		<div class="code">
 			<p>app_name <- # Elegido por el usuario</p>
-			<p>app_client_id  <- 'myid' # Asignado por Strava</p>
-			<p>app_secret <- 'xxxxxxxx' # secreto alfanumerico assignado por Strava</p>	
+			<p>app_client_id  <- <span class="green">'myid'</span> # Asignado por Strava</p>
+			<p>app_secret <- <span class="green">'xxxxxxxx'</span> # secreto alfanumerico assignado por Strava</p>	
 		</div>
 		<p>Si quieres que en los resultados de tu aplicación aparezca data privada a la que tienes acceso desde tu cuenta usa:</p>
 		<div class="code">
-			<p>app_scope <- 'view_private'</p>
+			<p>app_scope <- <span class="green">'view_private'</span></p>
 		</div>
 		<p>De lo contrario usa:</p>
 		<div class="code">
-			<p>app_scope <- 'public'</p>
+			<p>app_scope <- <span class="green">'public'</span></p>
 		</div>
 		<p>Ahora con estas variables autenticamos nuestra aplicación para obtener un token de acceso al API:</p>
 		<div class="code">
@@ -92,7 +92,7 @@
 		<p>Si la data se descargó deberías ver tu nombre de usuario y la cantidad de amigos y seguidores que tienes en Strava.</p>
 		<p>Ahora ya tienes acceso al API de Strava desde R. Puedes ver una lista de las funcionalidades del paquete rStrava usando la ayuda:</p>
 		<div class="code">
-			<p>help.search('token', package = 'rStrava')</p>
+			<p>help.search(<span class="green">'token'</span>, package = <span class="green">'rStrava'</span>)</p>
 		</div>
 		<p>Y ahora a jugar con la data y R para ver qué información puedes revelar. Algunos ejemplos de lo que puedes hacer con esta data:</p>
 		<ul><li>Visualizar tu red social de amigos en Strava.</li>
