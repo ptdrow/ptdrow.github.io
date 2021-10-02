@@ -1,20 +1,38 @@
 * {
-   font-family: 'Montserrat', sans-serif;
-   color: rgb(220,220,210)
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(0,50,125)
 }
 
 body {
-   background-color: rgb(0,15,35);
    padding: 2%;
 }
+
+body.light {
+    background-color: rgb(255,255,255);
+}
+    
+body.dark {
+    background-color: rgb(0,15,35);
+}
+
 
 header {
 }
 
+.dark {
+
+}
+
+.light{
+
+}
+
+
+
 h1 {
    font-size: 2em;         
    text-align: center;
-   color: rgb(230,230,220);
+   color: rgb(0,50,125);
    margin-top: 3%;
    padding-bottom: 1%;
    margin-bottom: 0;
@@ -28,7 +46,7 @@ p {
 }
 
 a {
-   color: rgb(255,125,0)
+   color: rgb(225,100,0)
 }
 
 footer a {
@@ -60,4 +78,15 @@ section li {
    border-radius: 50%;
    
 }
- 
+
+.proficient {
+    font-size: 2em;
+}
+
+.medium {
+    font-size: 1.5em;
+}
+
+.basic {
+    font-size: 1em;
+}
