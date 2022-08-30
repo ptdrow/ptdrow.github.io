@@ -2,6 +2,14 @@ body {
   background-color: white;
 }
 
+h1, h2, h3 {
+  text-align: center;
+}
+
+.red_text {
+  color: red;
+}
+
 .container {
   display: flex;
   flex-flow: row wrap;
