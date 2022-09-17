@@ -10,7 +10,7 @@ h1, h2, h3 {
   color: red;
 }
 
-.container {
+.category {
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
